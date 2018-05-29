@@ -43,13 +43,13 @@ http://www.inf.puc-rio.br/~roberto/lpeg/lpeg.html
 
 6. 编译android平台libtolua.so
 
-6.1 修改build_arm.sh中的NDK路径为本地路径
+6.1 修改build_arm.sh(build_x86.sh)中的NDK路径为本地路径
 
 6.2 运行msys2/mingw32_shell.bat
 
 6.3 进入tolua_runtime源码目录 
 
-6.4	键入并执行：./build_arm.sh
+6.4	键入并执行：./build_arm.sh(build_x86.sh)
 
 6.5 NDKABI修改成21后会导致报错：jni/libluajit.a(lj_profile.o):lj_profile.c:function luaJIT_profile_start: error: undefined reference to 'sigemptyset'
 
