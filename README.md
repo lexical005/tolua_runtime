@@ -23,3 +23,50 @@ https://github.com/diegonehab/luasocket<br>
 http://www.inf.puc-rio.br/~roberto/struct/<br>
 **lpeg**<br>
 http://www.inf.puc-rio.br/~roberto/lpeg/lpeg.html
+
+编译tolua_runtime
+1. 从github下载tolua_runtime源码
+
+2. 下载android-ndk-r10e，解压后将路径添加到系统PATH路径
+
+3. 下载配置好的msys2，解压后将路径添加到系统PATH路径
+
+4. 如果需要，重启电脑后，新增的系统PATH路径才会生效
+
+5. 编译Windows平台tolua.dll
+
+5.1 运行msys2/mingw64_shell.bat
+
+5.2 进入tolua_runtime源码目录
+
+5.3	键入并执行：./build_win64.sh
+
+6. 编译android平台libtolua.so
+
+6.1 修改build_arm.sh中的NDK路径为本地路径
+
+6.2 运行msys2/mingw32_shell.bat
+
+6.3 进入tolua_runtime源码目录 
+
+6.4	键入并执行：./build_arm.sh
+
+6.5 NDKABI修改成21后会导致报错：jni/libluajit.a(lj_profile.o):lj_profile.c:function luaJIT_profile_start: error: undefined reference to 'sigemptyset'
+
+备注:
+sproto代码，被修改了2处，一处是删除lua_tointegerx：
+
+#if LUA_VERSION_NUM < 502
+static int64_t lua_tointegerx(lua_State *L, int idx, int *isnum) {
+	if (lua_isnumber(L, idx)) {
+		if (isnum) *isnum = 1;
+		return (int64_t)lua_tointeger(L, idx);
+	}
+	else {
+		if (isnum) *isnum = 0;
+		return 0;
+	}
+}
+#endif
+
+一处是删除LUAMOD_API 
